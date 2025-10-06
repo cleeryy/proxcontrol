@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  proxguard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proxguard-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - proxguard-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  proxguard-network:
+    driver: bridge
